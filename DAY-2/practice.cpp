@@ -302,28 +302,75 @@
 
 // a
 
+// #include<iostream>
+// #include<string>
+// #include<unordered_map>
+// using namespace std;
+// int main(){
+//     string s;
+//     cin>>s;
+//     unordered_map<char,int> freq;
+//     for(int i=0;i<s.length();i++){
+//         freq[s[i]]++;
+
+//     }
+//     int maxfrequency=0;
+//     char answer=s[0];
+    
+//     for(int i=0;i<s.length();i++){
+//         if(freq[s[i]]>maxfrequency){
+
+//             maxfrequency=freq[s[i]];
+//             answer=s[i];
+            
+//         }
+        
+//     }
+//     cout<<answer;
+
+
+//     return 0;
+// }
+
+
+// 🏁 Day 2 Final Challenge
+
+// Now I'm going to stop telling you the pattern.
+
+// You need to decide what technique is appropriate.
+
+// Problem 6 — Remove Duplicate Characters
+
+// Given a string, remove duplicate characters while keeping the first occurrence order.
+
+// Example 1
+// Input:
+// programming
+
+// Output:
+
+// progamin
 #include<iostream>
 #include<string>
-#include<unordered_map>
+
+#include<unordered_set>
 using namespace std;
 int main(){
     string s;
     cin>>s;
-    unordered_map<char,int> freq;
+    
+    unordered_set<char> st;
+    string result;
     for(int i=0;i<s.length();i++){
-        freq[s[i]]++;
-
-    }
-    int maxfrequency=0;
-    char answer=s[0];
-    // int largest=s[0];
-    for(int i=0;i<s.length();i++){
-        if(freq[s[i]]>maxfrequency){
-            maxfrequency=s[i];
+        // st.insert(i);
+        if(st.find(s[i])==st.end()){
+            st.insert(s[i]);
+            result.push_back(s[i]);
         }
+        
+        
     }
-    cout<<maxfrequency;
-
-
+    cout<<result;
     return 0;
+
 }
