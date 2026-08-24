@@ -453,6 +453,85 @@
 // because 6 > 5 and 6 > 4.
 
 // Either valid peak index is acceptable
+// #include<iostream>
+// #include<vector>
+// using namespace std;
+
+// int main(){
+//     int n;
+//     cin >> n;
+
+//     vector<int> arr(n);
+
+//     for(int i = 0; i < n; i++){
+//         cin >> arr[i];
+//     }
+
+//     int left = 0;
+//     int right = n - 1;
+
+//     while(left < right){
+
+//         int mid = left + (right - left) / 2;
+
+//         if(arr[mid] < arr[mid + 1]){
+//             // Increasing slope → peak is on the right
+//             left = mid + 1;
+//         }
+//         else{
+//             // Decreasing slope → peak is at mid or on the left
+//             right = mid;
+//         }
+//     }
+
+//     cout << left;
+
+//     return 0;
+// }
+
+// 🔥 Day 3 — Final Problem
+
+// You've now learned enough Binary Search variations for today. Let's finish with one placement-style mixed problem where I won't tell you the pattern.
+
+// 🧩 Problem — Find the Minimum in a Rotated Sorted Array
+
+// A sorted array has been rotated at some unknown position.
+
+// Example:
+
+// Original:
+// [1, 2, 3, 4, 5, 6, 7]
+
+// Rotated:
+// [4, 5, 6, 7, 1, 2, 3]
+
+// Find the minimum element.
+
+// Example 1
+// Input:
+// 7
+// 4 5 6 7 1 2 3
+
+// Output:
+
+// 1
+// Example 2
+// Input:
+// 5
+// 3 4 5 1 2
+
+// Output:
+
+// 1
+// Example 3
+// Input:
+// 5
+// 1 2 3 4 5
+
+// Output:
+
+// 1
+
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -463,11 +542,17 @@ int main(){
     for(int i=0;i<n;i++){
         cin>>arr[i];
     }
-    for(int i=1;i<n;i++){
-        if(arr[i]>arr[i-1]&&arr[i]>arr[i+1]){
-            cout<<i;
-            return 0;
+    int left=0;
+    int right=n-1;
+    while(left<right){
+        int mid=left+(right-left)/2;
+        if(arr[mid]>arr[right]){
+            left=mid+1;
+        }
+        else {
+            right=mid;
         }
     }
+    cout<<arr[left];
     return 0;
 }
