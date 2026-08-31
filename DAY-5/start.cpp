@@ -269,20 +269,36 @@
 #include<iostream>
 #include<vector>
 using namespace std;
+
 int main(){
     int n;
-    cin>>n;
+    cin >> n;
+
     vector<int> arr(n);
-    for(int i=0;i<n;i++){
-        cin>>arr[i];
+
+    for(int i = 0; i < n; i++){
+        cin >> arr[i];
     }
-    for(int i=1;i<n;i++){
-        arr[i]=arr[i]+arr[i-1];
+
+    // Build prefix sum
+    for(int i = 1; i < n; i++){
+        arr[i] = arr[i] + arr[i - 1];
     }
-    // for(int i=0;i<n;i++){
-    //     cout<<arr[i]<<" ";
-    // }
-    int target;
-    cin>>target;
+
+    int q;
+    cin >> q;
+
+    while(q--){
+        int L, R;
+        cin >> L >> R;
+
+        if(L == 0){
+            cout << arr[R] << endl;
+        }
+        else{
+            cout << arr[R] - arr[L - 1] << endl;
+        }
+    }
+
     return 0;
 }
