@@ -1,0 +1,3 @@
+s==tail){
+    //     tail=head;
+    // }
