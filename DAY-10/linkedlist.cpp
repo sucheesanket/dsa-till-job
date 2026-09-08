@@ -188,3 +188,97 @@
 
 // Find Middle 🐢🐇 + Reverse Linked List 🔄
 
+// Test these:
+// 1 → 2 → 3 → 2 → 1
+
+// Expected:
+
+// true
+// 1 → 2 → 2 → 1
+
+// Expected:
+
+// true
+// 1 → 2 → 3 → 4
+
+// Expected:
+
+// false
+#include<iostream>
+using namespace std;
+struct Node{
+    int data;
+    Node* next;
+    Node(int val){
+        data=val;
+        next=nullptr;
+    }
+};
+Node* reverselist(Node* head){
+    Node* prev=nullptr;
+    Node* curr=head;
+    while(curr!=nullptr){
+        Node* nextnode=curr->next;
+        curr->next=prev;
+        prev=curr;
+        curr=nextnode;
+    }
+    return prev;
+
+}
+bool ispalindrome(Node* head){
+    Node* slow=head;
+    Node* fast=head;
+    while(fast!=nullptr&&fast->next!=nullptr){
+        slow=slow->next;
+        fast=fast->next->next;
+    }
+
+   
+    Node* second;
+    if(fast!=nullptr){
+        second=slow->next;
+    }else{
+        second=slow;
+    }
+    second=reverselist(second);
+    Node* first=head; 
+   
+    while(second!=nullptr){
+        if(first->data!=second->data){
+            return false;
+        }
+        first=first->next;
+        second=second->next;
+       
+    }
+   
+    return true;
+    
+}
+int main(){
+    int n;
+    cin>>n;
+    Node* head=nullptr;
+    Node* tail=nullptr;
+    for(int i=0;i<n;i++){
+        int value;
+        cin>>value;
+        Node* newnode=new Node(value);
+        if(head==nullptr){
+            head=newnode;
+            tail=newnode;
+        }else{
+            tail->next=newnode;
+            tail=newnode;
+        }
+    }
+
+     
+    if(ispalindrome(head)) {
+        cout<<"True";
+    }else{
+        cout<<"False";
+    }
+    return 0;
+}
