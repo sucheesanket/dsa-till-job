@@ -548,36 +548,304 @@
 
 // has 3 nodes
 
-#include<iostream>
-#include<algorithm>
-using namespace std;
-struct Node{
-    int data;
-    Node* left;
-    Node* right;
-    Node(int val){
-        data=val;
-        left=nullptr;
-        right=nullptr;
-    }
-};
-int height(Node* root){
-    if(root==nullptr){
+// #include<iostream>
+// #include<algorithm>
+// using namespace std;
+// struct Node{
+//     int data;
+//     Node* left;
+//     Node* right;
+//     Node(int val){
+//         data=val;
+//         left=nullptr;
+//         right=nullptr;
+//     }
+// };
+// int height(Node* root){
+//     if(root==nullptr){
 
-        return 0;
-    }
-    int leftheight=height(root->left);
-    int rightheight=height(root->right);
-    return 1+max(leftheight,rightheight);
+//         return 0;
+//     }
+//     int leftheight=height(root->left);
+//     int rightheight=height(root->right);
+//     return 1+max(leftheight,rightheight);
 
-}
-int main(){
-    Node* root=new Node(10);
-    root->left=new Node(5);
-    root->right=new Node(20);
-    root->left->left=new Node(3);
-    root->left->right=new Node(7);
-    cout<<height(root);
+// }
+// int main(){
+//     Node* root=new Node(10);
+//     root->left=new Node(5);
+//     root->right=new Node(20);
+//     root->left->left=new Node(3);
+//     root->left->right=new Node(7);
+//     cout<<height(root);
 
-    return 0;
-}
+//     return 0;
+// }
+
+// 🎯 Problem 11 — BST Search
+
+// Now let's move from Binary Tree → BST.
+
+// Given a BST:
+
+//              10
+//             /  \
+//            5    20
+//           / \   / \
+//          3   7 15  25
+
+// Given a target, determine whether it exists in the BST.
+
+// Examples
+// Input:
+// 15
+
+// Output:
+// Found
+// Input:
+// 12
+
+// Output:
+// Not Found
+
+// #include<iostream>
+// using namespace std;
+// struct Node{
+//     int data;
+//     Node* left;
+//     Node* right;
+//     Node(int val){
+//         data=val;
+//         left=nullptr;
+//         right=nullptr;
+//     }
+// };
+// void searchBST(Node* root,int target){
+//     Node* curr=root;
+//     while(curr!=nullptr){
+//         if(target==curr->data){
+//             cout<<"found";
+//             return;
+//         }else if(target<curr->data){
+//             curr=curr->left;
+//         }else{
+//             curr=curr->right;
+//         }
+//     }
+//     cout<<"Not found";
+
+// }
+// int main(){
+//     Node* root=new Node(10);
+//     root->left=new Node(5);
+//     root->right=new Node(20);
+//     root->left->left=new Node(3);
+//     root->left->right=new Node(7);
+//     root->right->left=new Node(15);
+//     root->right->right=new Node(25);
+//     int target;
+//     cin>>target;
+//     searchBST(root,target);
+//     return 0;
+// }
+
+// 🎯 Problem 12 — BST Minimum and Maximum
+
+// Let's stay with BSTs for a little longer.
+
+// Given:
+
+//              10
+//             /  \
+//            5    20
+//           / \   / \
+//          3   7 15  25
+
+// Find:
+
+// Minimum element
+// Maximum element
+
+// Expected:
+
+// Minimum = 3
+// Maximum = 25
+
+
+// #include<iostream>
+// using namespace std;
+// struct Node{
+//     int data;
+//     Node* left;
+//     Node* right;
+//     Node(int val){
+//         data=val;
+//         left=nullptr;
+//         right=nullptr;
+//     }
+// };
+// int minbst(Node* root){
+//     if(root==nullptr){
+//         return 0;
+//     }
+//     Node* curr=root;
+//     while(curr->left!=nullptr){
+//         curr=curr->left;
+//     }
+//     return curr->data;
+
+
+// }
+// int maxbst(Node* root){
+//     if(root==nullptr){
+//         return 0;
+//     }
+//     Node* curr=root;
+//     while(curr->right!=nullptr){
+//         curr=curr->right;
+        
+//     }
+//     return curr->data;
+
+
+// }
+// int main(){
+//     Node* root=new Node(10);
+//     root->left=new Node(5);
+//     root->right=new Node(20);
+//     root->left->left=new Node(3);
+//     root->left->right=new Node(7);
+//     root->right->left=new Node(15);
+//     root->right->right=new Node(25);
+//     cout<<"maximum element is : "<<maxbst(root)<<endl;
+//     cout<<"minimum element is : "<<minbst(root);
+    
+    
+//     return 0;
+// }
+
+// 🎯 Problem 13 — BST Insertion 🔥
+
+// Now we're moving into one of the core BST operations.
+
+// Start with:
+
+//         10
+//        /  \
+//       5    20
+//      / \
+//     3   7
+
+// Insert:
+
+// 15
+
+// The resulting tree should be:
+
+//         10
+//        /  \
+//       5    20
+//      / \   /
+//     3   7 15
+
+// #include<iostream>
+// using namespace std;
+// struct Node{
+//     int data;
+//     Node* left;
+//     Node* right;
+//     Node(int val){
+//         data=val;
+//         left=nullptr;
+//         right=nullptr;
+//     }
+// };
+// Node* insertBST(Node* root,int value){
+//     if(root==nullptr){
+//         return new Node(value);
+//     }
+//     Node* curr=root;
+//     while(true){
+//         if(value<curr->data){
+//         if(curr->left==nullptr){
+//             curr->left=new Node(value);
+//             break;
+//         }
+//         curr=curr->left;
+
+//     }else if(value>curr->data){
+//         if(curr->right==nullptr){
+//             curr->right=new Node(value);
+//             break;
+//         }
+//         curr=curr->right;
+//     }else{
+//         break;
+//     }
+
+//     }
+//     return root;
+    
+
+// }
+// void inorder(Node* root) {
+//     if (root == nullptr) {
+//         return;
+//     }
+
+//     inorder(root->left);
+//     cout << root->data << " ";
+//     inorder(root->right);
+// }
+// int main() {
+//     Node* root = new Node(10);
+
+//     root->left = new Node(5);
+//     root->right = new Node(20);
+
+//     root->left->left = new Node(3);
+//     root->left->right = new Node(7);
+
+//     int value;
+//     cin >> value;
+
+//     root = insertBST(root, value);
+
+//     cout << "In-order traversal: ";
+//     inorder(root);
+//     cout << endl;
+
+//     return 0;
+// }
+
+
+// 🎯 Problem 14 — BST Deletion 🔥🔥
+
+// Now we reach the most important BST operation.
+
+// We're going to do it carefully because deletion has three cases.
+
+// Given:
+
+//         10
+//        /  \
+//       5    20
+//      / \   / \
+//     3   7 15 25
+// Case 1 — Delete a leaf
+
+// Delete:
+
+// 3
+
+// Result:
+
+//         10
+//        /  \
+//       5    20
+//        \   / \
+//         7 15 25
+
+
+//         do it myself
+
