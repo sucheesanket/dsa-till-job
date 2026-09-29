@@ -819,6 +819,100 @@
 // }
 
 
+
+
+// 🎯 Problem 13 — BST Insertion 🔥
+
+// Now we're moving into one of the core BST operations.
+
+// Start with:
+
+//         10
+//        /  \
+//       5    20
+//      / \
+//     3   7
+
+// Insert:
+
+// 15
+
+// The resulting tree should be:
+
+//         10
+//        /  \
+//       5    20
+//      / \   /
+//     3   7 15
+
+// #include<iostream>
+// using namespace std;
+// struct Node{
+//     int data;
+//     Node* left;
+//     Node* right;
+//     Node(int val){
+//         data=val;
+//         left=nullptr;
+//         right=nullptr;
+//     }
+// };
+// Node* insertBST(Node* root,int value){
+//     if(root==nullptr){
+//         return new Node(value);
+//     }
+//     Node* curr =root;
+//     while(true){
+//         if(value<curr->data){
+//             if(curr->left==nullptr){
+//                 curr->left=new Node(value) ;
+//                 break;
+//             }
+//             curr=curr->left;
+//         }
+//         else if(value>curr->data){
+//             if(curr->right==nullptr){
+//                 curr->right=new Node(value);
+//                 break;
+//             }
+//             curr=curr->right;
+
+//         }
+//         else{
+//             break;
+//         }
+//     }
+//     return root;
+
+// }
+// void inorder(Node* root){
+//     if(root==nullptr){
+//         return;
+//     }
+//     inorder(root->left);
+//     cout<<root->data<<" ";
+//     inorder(root->right);
+
+// }
+// int main(){
+//     Node* root=new Node(10);
+//     root->left=new Node(5);
+//     root->right=new Node(20);
+//     root->left->left=new Node(3);
+//     root->left->right=new Node(7);
+//     // root->right->left=new Node(15);
+//     int value;
+//     cout<<"Enter value :";
+//     cin>>value;
+//     root=insertBST(root,value);
+//     cout<<"After inorder traversal :"<<endl;
+//     inorder(root);
+    
+
+//     return 0;
+// }
+
+
 // 🎯 Problem 14 — BST Deletion 🔥🔥
 
 // Now we reach the most important BST operation.
@@ -849,3 +943,81 @@
 
 //         do it myself
 
+#include<iostream>
+using namespace std;
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+    Node(int val){
+        data=val;
+        left=nullptr;
+        right=nullptr;
+    }
+};
+Node* deleteBST(Node* root,int value){
+    if(root==nullptr){
+        return nullptr;
+    }
+    if(value<root->data){
+        root->left=deleteBST(root->left,value);
+    }else if(value>root->data){
+        root->right=deleteBST(root->right,value);
+
+    }else{
+        if(root->left==nullptr&&root->right==nullptr){
+            delete root;
+            return nullptr;
+        }
+        if(root->left==nullptr){
+            Node* temp=root->right;
+            delete root;
+            return temp;
+        }
+        if(root->right==nullptr){
+            Node* temp=root->left;
+            delete root;
+            return temp;
+        }
+
+        Node* successor=root->right;
+        while(successor->left!=nullptr){
+            successor=successor->left;
+        }
+        root->data=successor->data;
+        root->right=deleteBST(root->right,successor->data);
+    }
+    return root;
+    
+}
+void inorder(Node* root){
+    if(root==nullptr){
+        return;
+    }
+    inorder(root->left);
+    cout<<root->data<<" ";
+    inorder(root->right);
+}
+int main(){
+    Node* root=new Node(10);
+    root->left=new Node(5);
+    root->right=new Node(20);
+    root->left->left=new Node(3);
+    root->left->right=new Node(7);
+    root->right->left=new Node(15);
+    root->right->right=new Node(25);
+
+    int value;
+    cout<<"Enter value: ";
+    cin>>value;
+    cout<<"Before deletion: "<<endl;
+    inorder(root);
+
+    root=deleteBST(root,value);
+    
+    cout<<"\nAfter deletion: "<<endl;
+    inorder(root);
+
+
+    return 0;
+}
